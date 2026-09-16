@@ -1,0 +1,155 @@
+/* Lumeris Logic — feuille de style partagée par tout le site
+   (page studio, pages d'apps, politiques de confidentialité, aide, mentions légales). */
+
+:root {
+  --bg: #fafaf7;
+  --fg: #1d1f21;
+  --muted: #5b6168;
+  --line: #e2e2dc;
+  --accent: #1f5f8b;
+  --card: #ffffff;
+  --note: #eef4f8;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --fg: #e6e6e3;
+    --muted: #a0a6ad;
+    --line: #2c3036;
+    --accent: #7cb7e0;
+    --card: #1c1f23;
+    --note: #1a2630;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.65 var(--font);
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding-inline: 20px;
+  padding-block: 32px 80px;
+}
+
+/* ---- Typographie ---------------------------------------------------- */
+
+h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .25rem; text-wrap: balance; }
+h2 { font-size: 1.25rem; margin: 2.5rem 0 .75rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+h3 { font-size: 1.05rem; margin: 1.5rem 0 .5rem; }
+p, ul, ol, dl { margin: 0 0 1rem; }
+ul, ol { padding-left: 1.25rem; }
+li { margin-bottom: .4rem; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: .92em; }
+
+.meta { color: var(--muted); margin-bottom: 2rem; }
+.lede { font-size: 1.1rem; color: var(--muted); }
+
+/* ---- En-tête du site : fil d'Ariane + sélecteur de langue ------------ */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .95rem; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); text-decoration: underline; }
+.crumbs span { color: var(--line); }
+
+.lang-switch { display: flex; gap: 6px; }
+.lang-switch button {
+  font: inherit;
+  font-size: .9rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--fg);
+}
+.lang-switch button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+/* Pages bilingues : une <section lang> visible à la fois quand JS est actif,
+   les deux l'une sous l'autre sinon. */
+html.js section[lang]:not(.active) { display: none; }
+html:not(.js) .lang-switch { display: none; }
+html:not(.js) section[lang] + section[lang] { margin-top: 4rem; padding-top: 2rem; border-top: 3px solid var(--line); }
+
+/* ---- Blocs de contenu ------------------------------------------------ */
+
+.note {
+  background: var(--note);
+  border-left: 4px solid var(--accent);
+  padding: 14px 18px;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+.note p:last-child { margin-bottom: 0; }
+
+.table-wrap { overflow-x: auto; margin: 0 0 1rem; }
+table { width: 100%; border-collapse: collapse; background: var(--card); font-size: .95rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border: 1px solid var(--line); }
+th { font-weight: 600; }
+
+nav.toc ol { columns: 2; column-gap: 2rem; }
+
+/* Liste de définitions (mentions légales, fiches) */
+dl.facts { display: grid; grid-template-columns: max-content 1fr; gap: 6px 20px; }
+dl.facts dt { font-weight: 600; }
+dl.facts dd { margin: 0; }
+
+/* FAQ */
+details { border-top: 1px solid var(--line); padding-block: 12px; }
+details:last-of-type { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; font-weight: 600; }
+details > :not(summary) { margin-top: .6rem; }
+
+/* Liens d'une page d'app */
+.links { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.links li { margin: 0; }
+.links a {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  text-decoration: none;
+}
+.links a:hover { border-color: var(--accent); }
+
+/* Page en préparation */
+.placeholder { color: var(--muted); }
+
+/* ---- Pied de page ---------------------------------------------------- */
+
+.site-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .9rem;
+}
+.site-footer p { margin-bottom: .4rem; }
+
+@media (max-width: 560px) {
+  h1 { font-size: 1.6rem; }
+  nav.toc ol { columns: 1; }
+  dl.facts { grid-template-columns: 1fr; gap: 2px; }
+  dl.facts dd { margin-bottom: 10px; }
+}
